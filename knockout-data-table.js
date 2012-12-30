@@ -25,14 +25,10 @@
                 }
             };
             self.moveToPage = function (index) {
-                console.log("goto: " + index);
                 self.pageIndex(index - 1);
             };
             self.reload = function() {
                 self.loader(self.pageIndex() + 1, self.pageSize(), function (data) {
-                    console.log("page - get : " + self.pageIndex() + " ;sent: " + data.number);
-                    console.log("size - get : " + self.pageSize() + " ;sent: " + data.size);
-                    console.log("total : " + data.totalPages);
                     self.items(data.content);
                     self.pageIndex(Math.min(data.number, data.totalPages - 1));
                     self.totalPages(data.totalPages);
