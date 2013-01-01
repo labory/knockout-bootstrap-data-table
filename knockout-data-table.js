@@ -48,49 +48,50 @@
         document.write("<script type='text/html' id='" + templateName + "'>" + templateMarkup + "<" + "/script>");
     };
 
-    templateEngine.addTemplate("ko_table_header", "\
+    templateEngine.addTemplate("ko_table_header", '\
                         <thead>\
-                            <tr data-bind=\"foreach: columns\">\
-                               <th data-bind=\"text: name\"></th>\
+                            <tr data-bind="foreach: columns">\
+                               <th data-bind="text: name"></th>\
                             </tr>\
-                        </thead>");
+                        </thead>');
 
-    templateEngine.addTemplate("ko_table_body", "\
-                        <tbody data-bind=\"foreach: items\">\
-                           <tr data-bind=\"foreach: $parent.columns\">\
-                               <td data-bind=\"text: typeof value == 'function' ? value($parent) : $parent[value] \"></td>\
+    templateEngine.addTemplate("ko_table_body", '\
+                        <tbody data-bind="foreach: items">\
+                           <tr data-bind="foreach: $parent.columns">\
+                               <td data-bind="text: typeof value == \'function\' ? value($parent) : $parent[value] "></td>\
                             </tr>\
-                        </tbody>");
-    templateEngine.addTemplate("ko_table_pager", "\
+                        </tbody>');
+
+    templateEngine.addTemplate("ko_table_pager", '\
         <tfoot>\
         <tr>\
-        <td colspan=\"10\">\
+        <td colspan="10">\
             <div data-bind="foreach: [10, 25, 50, 100]">\
                 <!-- ko if: $data == $root.pageSize() -->\
-                    <span data-bind="text: $data + \' \'"\/>\
+                    <span data-bind="text: $data + \' \'"/>\
                 <!-- /ko -->\
                 <!-- ko if: $data != $root.pageSize() -->\
                     <a href="#" data-bind="text: $data + \' \', click: function() { $root.pageSize($data) }"/>\
                 <!-- /ko -->\
             </div>\
-            <div class=\"pagination\" data-bind=\"if: totalPages() > 1\">\
+            <div class="pagination" data-bind="if: totalPages() > 1">\
                 <ul>\
-                    <li data-bind=\"css: { disabled: isFirstPage() }\">\
-                        <a href=\"#\" data-bind=\"click: prevPage\">«</a>\
+                    <li data-bind="css: { disabled: isFirstPage() }">\
+                        <a href="#" data-bind="click: prevPage">«</a>\
                     </li>\
                     <!-- ko foreach: ko.utils.range(1, totalPages()) -->\
-                    <li data-bind=\"css: { active: $data === ($root.pageIndex() + 1)}\">\
-                        <a href=\"#\" data-bind=\"text: $data, click: $root.moveToPage\"/>\
+                    <li data-bind="css: { active: $data === ($root.pageIndex() + 1)}">\
+                        <a href="#" data-bind="text: $data, click: $root.moveToPage"/>\
                     </li>\
                     <!-- /ko -->\
-                    <li data-bind=\"css: { disabled: isLastPage() }\">\
-                        <a href=\"#\" data-bind=\"click: nextPage\">»</a>\
+                    <li data-bind="css: { disabled: isLastPage() }">\
+                        <a href="#" data-bind="click: nextPage">»</a>\
                     </li>\
                 </ul>\
             </div>\
         </td>\
         </tr>\
-    </tfoot>");
+    </tfoot>');
 
     ko.bindingHandlers.dataTable = {
         init:function (element, valueAccessor) {
