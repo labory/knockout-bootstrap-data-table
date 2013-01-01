@@ -1,8 +1,8 @@
 Knockout pageable data table
 =============================
 
-##Usage
-
+###Usage
+![Basic Example](https://raw.github.com/labory/knockout-bootstrap-data-table/master/assets/basic-example.png)
 ###View
 
     <table data-bind="dataTable: tableViewModel"/>
