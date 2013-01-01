@@ -1,4 +1,7 @@
-// Knockout bootstrap pageable data table
+/**
+ * Knockout bootstrap pageable data table
+ * https://github.com/labory/knockout-bootstrap-data-table
+ */
 
 (function () {
 
@@ -62,8 +65,13 @@
         <tfoot>\
         <tr>\
         <td colspan=\"10\">\
-            <div data-bind=\"foreach: [10, 25, 50, 100]\">\
-                <a href=\"#\" data-bind=\"disable: ($data == $root.pageSize()), style : {fontWeight : ($data == $root.pageSize()) ? 'bold' : ''}, text: $data + ' ', click: function() { $root.pageSize($data) }\"/>\
+            <div data-bind="foreach: [10, 25, 50, 100]">\
+                <!-- ko if: $data == $root.pageSize() -->\
+                    <span data-bind="text: $data + \' \'"\/>\
+                <!-- /ko -->\
+                <!-- ko if: $data != $root.pageSize() -->\
+                    <a href="#" data-bind="text: $data + \' \', click: function() { $root.pageSize($data) }"/>\
+                <!-- /ko -->\
             </div>\
             <div class=\"pagination\" data-bind=\"if: totalPages() > 1\">\
                 <ul>\
