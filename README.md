@@ -5,7 +5,7 @@ Knockout pageable data table
 ![Basic Example](https://raw.github.com/labory/knockout-bootstrap-data-table/master/assets/basic-example.png)
 ###View
 
-    <table data-bind="dataTable: tableViewModel"/>
+    <table data-bind="dataTable: tableViewModel"><!-- --></table>
 
 ###ViewModel
 
@@ -34,7 +34,7 @@ Knockout pageable data table
 ![Basic Example](https://raw.github.com/labory/knockout-bootstrap-data-table/master/assets/custom-template-example.png)
 
 ###View
-    <table data-bind="dataTable: tableViewModel, tableHeaderTemplate: 'dataTableCustomHeaderTemplate'"/>
+    <table data-bind="dataTable: tableViewModel, tableHeaderTemplate: 'dataTableCustomHeaderTemplate'"><!-- --></table>
 
     <script type="text/html" id="dataTableCustomHeaderTemplate">
         <![CDATA[
