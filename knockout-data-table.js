@@ -15,8 +15,32 @@
             self.totalPages = ko.observable();
             self.pageIndex = ko.observable(0);
             self.pageSize = ko.observable(config.pageSize || 10);
+            self.pageRadius = ko.observable(config.pageRadius || 2);
             self.isFirstPage = ko.computed(function () {return self.pageIndex() === 0});
             self.isLastPage = ko.computed(function () {return self.pageIndex() === self.totalPages() - 1});
+            self.pages = ko.computed(function () {
+                var pages = [];
+                var page, elem, last;
+                for (page = 1; page <= self.totalPages(); page++) {
+                    var activePage = self.pageIndex() + 1;
+                    var totalPage = self.totalPages();
+                    var radius = self.pageRadius();
+                    if (page == 1 || page == totalPage) {
+                        elem = page;
+                    } else if (activePage < 2 * radius + 1) {
+                        elem = (page <= 2 * radius + 1) ? page : "ellipsis";
+                    } else if (activePage > totalPage - 2 * radius) {
+                        elem = (totalPage - 2 * radius <= page) ? page : "ellipsis";
+                    } else {
+                        elem = (Math.abs(activePage - page) <= radius ? page : "ellipsis");
+                    }
+                    if (elem != "ellipsis" || last != "ellipsis") {
+                        pages.push(elem);
+                    }
+                    last = elem;
+                }
+                return pages;
+            });
             self.prevPage = function () {
                 if (self.pageIndex() > 0) {
                     self.pageIndex(self.pageIndex() - 1);
@@ -79,10 +103,17 @@
                     <li data-bind="css: { disabled: isFirstPage() }">\
                         <a href="#" data-bind="click: prevPage">«</a>\
                     </li>\
-                    <!-- ko foreach: ko.utils.range(1, totalPages()) -->\
-                    <li data-bind="css: { active: $data === ($root.pageIndex() + 1)}">\
-                        <a href="#" data-bind="text: $data, click: $root.moveToPage"/>\
-                    </li>\
+                    <!-- ko foreach: pages() -->\
+                        <!-- ko if: $data == "ellipsis" -->\
+                            <li>\
+                                <span>...</span>\
+                            </li>\
+                        <!-- /ko -->\
+                        <!-- ko if: $data != "ellipsis" -->\
+                            <li data-bind="css: { active: $data === ($root.pageIndex() + 1)}">\
+                                <a href="#" data-bind="text: $data, click: $root.moveToPage"/>\
+                            </li>\
+                        <!-- /ko -->\
                     <!-- /ko -->\
                     <li data-bind="css: { disabled: isLastPage() }">\
                         <a href="#" data-bind="click: nextPage">»</a>\
