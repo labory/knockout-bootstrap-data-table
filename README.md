@@ -1,7 +1,7 @@
 Knockout pageable data table
 =============================
 
-###Usage
+###Basic
 ![Basic Example](https://raw.github.com/labory/knockout-bootstrap-data-table/master/assets/basic-example.png)
 ###View
 
@@ -29,6 +29,48 @@ Knockout pageable data table
         };
         ko.applyBindings(new ExamplePageViewModel());
     });
+    
+###Custom Template
+![Basic Example](https://raw.github.com/labory/knockout-bootstrap-data-table/master/assets/custom-template-example.png)
+
+###View
+    <table data-bind="dataTable: tableViewModel, tableHeaderTemplate: 'dataTableCustomHeaderTemplate'"/>
+
+    <script type="text/html" id="dataTableCustomHeaderTemplate">
+        <![CDATA[
+        <thead>
+        <tr>
+            <th colspan="4">Comparison of JavaScript frameworks</th>
+        </tr>
+        <tr>
+            <th>FRAMEWORK</th><th>LICENSE</th><th>DEPENDENCY</th><th>SIZE (Gzipped)</th>
+        </tr>
+        </thead>
+         ]]>
+    </script>
+
+###ViewModel
+        $(function () {
+            var ExamplePageViewModel = function() {
+                var self = this;
+                self.getData = function (page, size, callback) {
+                    var params = "?page.page=" + (page) + "&page.size=" + size;
+                    $.getJSON("/frameworks" + params, callback);
+                };
+                self.tableViewModel = new ko.dataTable.ViewModel({
+                    columns: [
+                        { name: "", value: "name" },
+                        { name: "", value: "license" },
+                        { name: "", value: "dependency" },
+                        { name: "", value: function (item) { return item.size != '' ? item.size + ' kb' : ''} }
+                    ],
+                    loader: self.getData,
+                    pageSize: 10
+                });
+            };
+            ko.applyBindings(new ExamplePageViewModel());
+        });
+
 
 ###Dependencies
   * Knockout
