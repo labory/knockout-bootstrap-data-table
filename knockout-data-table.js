@@ -7,7 +7,7 @@
 
     ko.dataTable = {
         ViewModel: function (config) {
-            self = this;
+            var self = this;
 
             self.loader  = config.loader;
             self.items = ko.observableArray(config.items || []);
