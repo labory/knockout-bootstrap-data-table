@@ -70,6 +70,14 @@ Knockout pageable data table
             };
             ko.applyBindings(new ExamplePageViewModel());
         });
+    
+###Possible Backend Implementation (Spring Data)
+
+    @RequestMapping(value = "/frameworks", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody Page<Framework> getFrameworks(@PageableDefaults(
+            pageNumber = 0, value = 10, sort = "name", sortDir = Sort.Direction.ASC) Pageable pageable) {
+        return frameworkRepository.findAll(pageable);
+    }
 
 
 ###Dependencies
