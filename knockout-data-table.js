@@ -10,6 +10,7 @@
             var self = this;
 
             self.loader  = config.loader;
+            self.throttle = config.throttle || 100;
             self.items = ko.observableArray(config.items || []);
             self.columns = config.columns;
             self.totalPages = ko.observable();
@@ -62,7 +63,7 @@
                     self.pageSize(data.size);
                 });
             };
-            self.content = ko.computed(self.reload);
+            self.content = ko.computed(self.reload).extend({ throttle:self.throttle });
         }
     };
 
