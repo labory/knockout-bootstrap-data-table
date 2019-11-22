@@ -1,13 +1,13 @@
 Knockout pageable data table
 =============================
 
-###Basic
+### Basic
 ![Basic Example](https://raw.github.com/labory/knockout-bootstrap-data-table/master/assets/basic-example.png)
-###View
+### View
 
     <table data-bind="dataTable: tableViewModel"><!-- --></table>
 
-###ViewModel
+### ViewModel
 
     $(function () {
         var ExamplePageViewModel = function() {
@@ -30,10 +30,10 @@ Knockout pageable data table
         ko.applyBindings(new ExamplePageViewModel());
     });
     
-###Custom Template
+### Custom Template
 ![Basic Example](https://raw.github.com/labory/knockout-bootstrap-data-table/master/assets/custom-template-example.png)
 
-###View
+### View
     <table data-bind="dataTable: tableViewModel, tableHeaderTemplate: 'dataTableCustomHeaderTemplate'"><!-- --></table>
 
     <script type="text/html" id="dataTableCustomHeaderTemplate">
@@ -49,7 +49,7 @@ Knockout pageable data table
          ]]>
     </script>
 
-###ViewModel
+### ViewModel
         $(function () {
             var ExamplePageViewModel = function() {
                 var self = this;
@@ -71,7 +71,7 @@ Knockout pageable data table
             ko.applyBindings(new ExamplePageViewModel());
         });
     
-###Possible Backend Implementation (Spring Data)
+### Possible Backend Implementation (Spring Data)
 
     @RequestMapping(value = "/frameworks", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Page<Framework> getFrameworks(@PageableDefaults(
@@ -80,7 +80,7 @@ Knockout pageable data table
     }
 
 
-###Dependencies
+### Dependencies
   * Knockout
   * Jquery
   * bootstrap pagination css
